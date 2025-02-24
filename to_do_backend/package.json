@@ -1,0 +1,25 @@
+{
+  "name": "to_do_backend",
+  "version": "1.0.0",
+  "description": "for learn MERN",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/navatharshini/to_do_MERN.git"
+  },
+  "author": "Navatharshini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/navatharshini/to_do_MERN/issues"
+  },
+  "homepage": "https://github.com/navatharshini/to_do_MERN#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.1",
+    "nodemon": "^3.1.9"
+  }
+}
