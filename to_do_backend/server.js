@@ -16,9 +16,8 @@ app.use(cors());
 
 
 //Connecting moongoose
-
-mongoose.connect("mongodb://localhost:27017/to_do")
-    .then(() => {
+//mongodb://localhost:27017/to_do
+mongoose.connect("mongodb+srv://navatharshini22:Navas02%24@cluster1.4exv7uh.mongodb.net/todo?retryWrites=true&w=majority") .then(() => {
         console.log("DB connected!")
     })
     .catch((err) => {
