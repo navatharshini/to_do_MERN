@@ -65,60 +65,150 @@ function Todo() {
     }
   };
 
-
-  //Handle Delete
-
+  // Handle Delete
   const handleDelete=(id)=>{
-if(window.confirm("Are you sure want to delete?")){
-  fetch( apiUrl+'/todos/'+id,{
-    method:"Delete",
-
-  })
-  .then(()=>{
-   const updatedTodos=  todos.filter((item)=>item._id !==id)
-   setTodos(updatedTodos)
-  })
-}
-
+    if(window.confirm("Are you sure you want to delete?")){
+      fetch(apiUrl+'/todos/'+id, {
+        method:"DELETE",
+      })
+      .then(() => {
+        const updatedTodos = todos.filter((item) => item._id !== id)
+        setTodos(updatedTodos)
+      })
+    }
   }
-
-
 
   return (
     <>
-      <div className='row p-3 bg-success text-light'>
-        <h1>TO-Do App using MERN Stack</h1>
+      {/* Header */}
+      <div
+        className='text-center p-4 mb-4'
+        style={{
+          background: 'linear-gradient(90deg, #3a7bd5, #00d2ff)',
+          color: 'white',
+          fontWeight: '700',
+          fontSize: '2.8rem',
+          letterSpacing: '2px',
+          boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+          borderRadius: '8px',
+        }}
+      >
+        Your Daily Task Buddy
       </div>
 
       {/* Add Task Section */}
-      <div>
-        <h3>Add Item</h3>
-        {message && <p className="text-success">{message}</p>}
-        <div className='form-group d-flex gap-2'>
-          <input placeholder='Title' onChange={(e) => setTitle(e.target.value)} value={title} className='form-control' type="text" />
-          <input placeholder='Description' onChange={(e) => setDescription(e.target.value)} value={description} className='form-control' type="text" />
-          <button className='btn btn-dark' onClick={handleSubmit}>Submit</button>
+      <div
+        className='p-4 mb-5 mx-auto shadow rounded'
+        style={{ maxWidth: '600px', backgroundColor: '#f9faff' }}
+      >
+        <h3 className='mb-3' style={{ color: '#3a7bd5', fontWeight: '600' }}>
+          Add New Task
+        </h3>
+
+        {message && (
+          <p
+            className="text-success text-center"
+            style={{ fontWeight: '600', fontSize: '1.1rem' }}
+          >
+            {message}
+          </p>
+        )}
+
+        <div className='d-flex gap-3 mb-3'>
+          <input
+            placeholder='Title'
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+            className='form-control'
+            type="text"
+            style={{ boxShadow: '0 2px 6px rgba(58, 123, 213, 0.3)' }}
+          />
+          <input
+            placeholder='Description'
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
+            className='form-control'
+            type="text"
+            style={{ boxShadow: '0 2px 6px rgba(58, 123, 213, 0.3)' }}
+          />
+          <button
+            className='btn btn-primary'
+            onClick={handleSubmit}
+            style={{
+              backgroundColor: '#00d2ff',
+              borderColor: '#00d2ff',
+              fontWeight: '700',
+              boxShadow: '0 4px 8px rgba(0, 210, 255, 0.6)',
+              transition: 'background-color 0.3s ease',
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = '#0077b6')}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = '#00d2ff')}
+          >
+            Submit
+          </button>
         </div>
-        {error && <p className='text-danger'>{error}</p>}
+
+        {error && (
+          <p
+            className='text-danger text-center'
+            style={{ fontWeight: '600', fontSize: '1rem' }}
+          >
+            {error}
+          </p>
+        )}
       </div>
 
       {/* Task List */}
-      <div className='row mt-3'>
-        <h3 className='text-start`'>Tasks</h3>
-        <div className='col-md-6'>
+      <div
+        className='mx-auto shadow rounded p-4'
+        style={{ maxWidth: '700px', backgroundColor: '#e6f7ff' }}
+      >
+        <h3
+          className='mb-3'
+          style={{ color: '#0077b6', fontWeight: '700', textAlign: 'left' }}
+        >
+          Your Tasks
+        </h3>
         <ul className='list-group'>
           {todos.map((item) => (
-            <li key={item._id} className='list-group-item bg-info d-flex justify-content-between align-items-center my-2'>
-              <div className='d-flex flex-column'>
+            <li
+              key={item._id}
+              className='list-group-item d-flex justify-content-between align-items-center mb-3 rounded'
+              style={{
+                backgroundColor: '#ffffff',
+                boxShadow: '0 3px 8px rgba(0, 0, 0, 0.1)',
+                border: 'none',
+              }}
+            >
+              <div className='d-flex flex-column' style={{ maxWidth: '70%' }}>
                 {editId === item._id ? (
-                  <div className='form-group d-flex gap-2'>
-                    <input placeholder='Title' onChange={(e) => setEditTitle(e.target.value)} value={editTitle} className='form-control' type="text" />
-                    <input placeholder='Description' onChange={(e) => setEditDescription(e.target.value)} value={editDescription} className='form-control' type="text" />
+                  <div className='d-flex gap-2'>
+                    <input
+                      placeholder='Title'
+                      onChange={(e) => setEditTitle(e.target.value)}
+                      value={editTitle}
+                      className='form-control'
+                      type="text"
+                      style={{ boxShadow: '0 2px 5px rgba(0, 119, 182, 0.3)' }}
+                    />
+                    <input
+                      placeholder='Description'
+                      onChange={(e) => setEditDescription(e.target.value)}
+                      value={editDescription}
+                      className='form-control'
+                      type="text"
+                      style={{ boxShadow: '0 2px 5px rgba(0, 119, 182, 0.3)' }}
+                    />
                   </div>
                 ) : (
                   <>
-                    <span className='fw-bold'>{item.title}</span>
-                    <span>{item.description}</span>
+                    <span
+                      className='fw-bold'
+                      style={{ fontSize: '1.2rem', color: '#023e8a' }}
+                    >
+                      {item.title}
+                    </span>
+                    <span style={{ color: '#03045e' }}>{item.description}</span>
                   </>
                 )}
               </div>
@@ -126,16 +216,46 @@ if(window.confirm("Are you sure want to delete?")){
               {/* Buttons */}
               <div className='d-flex gap-2'>
                 {editId === item._id ? (
-                  <button onClick={handleUpdate} className='btn btn-success'>Update</button>
+                  <button
+                    onClick={handleUpdate}
+                    className='btn btn-success'
+                    style={{
+                      fontWeight: '700',
+                      boxShadow: '0 3px 6px rgba(40, 167, 69, 0.5)',
+                    }}
+                  >
+                    Update
+                  </button>
                 ) : (
-                  <button onClick={() => { setEditId(item._id); setEditTitle(item.title); setEditDescription(item.description); }} className='btn btn-warning'>Edit</button>
+                  <button
+                    onClick={() => {
+                      setEditId(item._id);
+                      setEditTitle(item.title);
+                      setEditDescription(item.description);
+                    }}
+                    className='btn btn-warning'
+                    style={{
+                      fontWeight: '700',
+                      boxShadow: '0 3px 6px rgba(255, 193, 7, 0.5)',
+                    }}
+                  >
+                    Edit
+                  </button>
                 )}
-                <button className='btn btn-danger' onClick={()=>handleDelete(item._id)}>Delete</button>
+                <button
+                  className='btn btn-danger'
+                  onClick={() => handleDelete(item._id)}
+                  style={{
+                    fontWeight: '700',
+                    boxShadow: '0 3px 6px rgba(220, 53, 69, 0.6)',
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             </li>
           ))}
         </ul>
-        </div>
       </div>
     </>
   );
